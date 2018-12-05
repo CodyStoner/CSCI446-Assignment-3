@@ -22,6 +22,7 @@ class Wumpus:
         self.Gold = False 
         self.score = 0
         self.arrow = True
+        self.steps = 0
 
     def bfs(self, currentNode, finish): #bfs is used to go home with gold or to go to new undiscovered 'K' node
        #create queue, visited nodes gets reset
@@ -29,6 +30,7 @@ class Wumpus:
        visitedNodes = []
 
        while len(queue) > 0:
+          self.steps += 1
           node = queue.pop()
           if node in visitedNodes:
              continue
@@ -174,6 +176,7 @@ class Wumpus:
         self.map[0][0].value = 'K'
 
         while not self.gameOver():
+            self.steps += 1
             node = self.location()
             self.evaluateNode(self.currentNode, node, self.map, self.maze)
 
@@ -186,7 +189,7 @@ class Wumpus:
 
             self.evaluateWorld(self.map, self.maze)
             self.currentNode = self.determineMove(self.currentNode, node, self.map, self.maze)
-        print('Game Over!\nScore: {}'.format(self.score))
+        print('Game Over!\nScore: {}, Steps: {}'.format(self.score, self.steps))
 
 
 
