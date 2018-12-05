@@ -21,6 +21,7 @@ class Wumpus:
         self.visited = [] #list of visited nodes
         self.Gold = False 
         self.score = 0
+        self.arrow = True
 
     def bfs(self, currentNode, finish): #bfs is used to go home with gold or to go to new undiscovered 'K' node
        #create queue, visited nodes gets reset
@@ -74,9 +75,10 @@ class Wumpus:
         if node.stench: #if the node has a stench, mark all other nodes as a possible wumpus
             location.stench = True
             for neighbor in location.neighbors:
-                if neighbor not in self.visited and neighbor.wumpus is not False and neighbor.value is '?': # Shoot the wumpus
+                if neighbor not in self.visited and neighbor.wumpus is not False and neighbor.value is '?' and self.arrow: # Shoot the wumpus
                     neighbor.wumpus = False
                     location.stench = False
+                    self.arrow = False
                     print("You shoot and arrow and hear a scream")
                 if neighbor not in self.visited and neighbor.wumpus is not False:
                     neighbor.value = '?'
