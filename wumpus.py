@@ -74,6 +74,10 @@ class Wumpus:
         if node.stench: #if the node has a stench, mark all other nodes as a possible wumpus
             location.stench = True
             for neighbor in location.neighbors:
+                if neighbor not in self.visited and neighbor.wumpus is not False and neighbor.value is '?': # Shoot the wumpus
+                    neighbor.wumpus = False
+                    location.stench = False
+                    print("You shoot and arrow and hear a scream")
                 if neighbor not in self.visited and neighbor.wumpus is not False:
                     neighbor.value = '?'
         else: #no stench, mark all adjacent nodes as not wumpus
